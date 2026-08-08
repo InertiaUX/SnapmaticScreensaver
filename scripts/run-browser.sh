@@ -1,18 +1,16 @@
 #!/bin/bash
-# Dev fallback: serve web/ on port 18765 and open the HTML player in Chrome
-# (kiosk). Useful when iterating on the feed/SWF without rebuilding the .app.
+# Serve web/ on :18765 and open the player in Chrome kiosk (no .app rebuild).
 set -e
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PORT=18765
 
-# Prefer the Mac app's HTML if present; otherwise a minimal local player.
 PLAYER="$ROOT/apps/mac/app-index.html"
 WEB="$ROOT/web"
 
 if lsof -tiTCP:$PORT -sTCP:LISTEN >/dev/null 2>&1; then
   echo "Port $PORT already serving; reusing it."
 else
-  # Serve from a staging dir that mirrors the bundle layout.
+  # Staging dir mirrors the .app Resources/web layout.
   STAGE=$(mktemp -d)
   cp -R "$WEB/"* "$STAGE/"
   cp "$PLAYER" "$STAGE/index.html"

@@ -1,9 +1,7 @@
 import AppKit
 import WebKit
 
-// Native shell for the 2013 Rockstar Snapmatic Screensaver.
-// Serves the archived photo feed locally, then plays the original
-// Flash movie.swf through Ruffle inside a fullscreen WKWebView.
+// Hosts the archived Snapmatic SWF via Ruffle + a local photo feed.
 
 let port = 18765
 
@@ -27,7 +25,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
         loadScreensaver()
     }
 
-    /// Intercept Esc/Q before WKWebView can swallow them.
+    // Esc/Q before WKWebView can swallow them.
     private func installKeyMonitor() {
         keyMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
             let isEscape = event.keyCode == 53
@@ -41,7 +39,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
         }
     }
 
-    /// A real menu bar so Cmd-Q, Cmd-H and Cmd-Tab behave like any other app.
     private func buildMenu() {
         let mainMenu = NSMenu()
         let appItem = NSMenuItem()
@@ -63,7 +60,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
         NSApp.mainMenu = mainMenu
     }
 
-    /// The original Social Club feed is dead, so photos come from a local server.
+    // Social Club feed is dead; serve photos from localhost.
     private func startFeedServer() {
         guard !isPortOpen() else { return }
         let root = Bundle.main.bundlePath + "/Contents/Resources/web"
@@ -98,7 +95,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
             backing: .buffered,
             defer: false
         )
-        // Cover the whole display in place rather than opening a Space of its own.
+        // Cover the display in place (no separate Space).
         window.level = .screenSaver
         window.backgroundColor = .black
         window.isOpaque = true
@@ -126,9 +123,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
         webView.load(URLRequest(url: url))
     }
 
-    // While we are frontmost the window sits above the menu bar and Dock. On
-    // deactivation it drops to a normal level so Cmd-Tab, the Dock and clicks
-    // on other apps all reach whatever is behind it.
     func applicationDidBecomeActive(_ notification: Notification) {
         guard let window else { return }
         window.level = .screenSaver
@@ -137,13 +131,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
     }
 
     func applicationDidResignActive(_ notification: Notification) {
-        // Drop below other apps so Cmd-Tab / Dock clicks reach them.
+        // Let Cmd-Tab / Dock reach other apps.
         window?.level = .normal
         window?.orderBack(nil)
         setCursorHidden(false)
     }
 
-    /// NSCursor hide/unhide is reference counted, so keep the calls balanced.
+    // NSCursor hide/unhide is reference-counted; keep calls balanced.
     private func setCursorHidden(_ hidden: Bool) {
         guard hidden != cursorHidden else { return }
         cursorHidden = hidden
@@ -162,7 +156,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { true }
 }
 
-/// Minimal TCP connect check so we reuse an already-running feed server.
+// TCP connect check so we can reuse an already-running feed server.
 struct Socket {
     let connected: Bool
 

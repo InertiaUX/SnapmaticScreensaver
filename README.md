@@ -1,13 +1,13 @@
 # Snapmatic Screensaver Revival
 
-Open-source preservation of Rockstar’s **Grand Theft Auto V Snapmatic Screensaver** (announced ~2013–2014) on modern machines.
+Revival of Rockstar's GTA V Snapmatic Screensaver (~2013-2014) for modern machines.
 
-Rockstar shipped free Mac/PC builds that showed a live mosaic of curated Snapmatic photos from Los Santos via Flash (`movie.swf`) and a Social Club XML feed. The installers vanished from `media.rockstargames.com`, Adobe Flash died, the feed went 404, and Social Club itself was later shut down — so the official screensaver is effectively abandoned. This repo recovers the originals from Wayback archives, runs the **original SWF** through [Ruffle](https://ruffle.rs/), replaces the dead feed with a local one, and wraps it in a native shell.
+The original Mac/PC builds used Flash (`movie.swf`) plus a Social Club XML photo feed. Flash is gone, the feed is 404, Social Club is shut down, and the official downloads are dead. This repo runs the original SWF through [Ruffle](https://ruffle.rs/), serves a local feed, and wraps it in a native shell.
 
-> **Status:** Apple Silicon Mac app works today. Intel Mac, Windows, and a true modern `.saver` are planned — see [docs/platforms.md](docs/platforms.md).  
-> **Not affiliated** with Rockstar Games or Take-Two Interactive.
+> **Status:** Apple Silicon Mac app works. Intel Mac, Windows, and a modern `.saver` are planned ([docs/platforms.md](docs/platforms.md)).  
+> Unofficial fan project. Not affiliated with Rockstar or Take-Two.
 
-## Quick start (Apple Silicon Mac)
+## Quick start (Apple Silicon)
 
 ```bash
 git clone https://github.com/InertiaUX/SnapmaticScreensaver.git
@@ -19,71 +19,39 @@ open -a ~/Applications/Snapmatic\ Screensaver.app
 
 Or: `./scripts/run-mac.sh`
 
-- **Esc** or **Q** — quit  
-- **⌘Q** — quit via menu  
-- **⌘Tab** / Dock — use other apps; mosaic drops behind them  
+- Esc / Q: quit
+- ⌘Q: quit via menu
+- ⌘Tab / Dock: switch apps (mosaic drops behind them)
 
-## What’s in this repo
+## Layout
 
 ```
-SnapmaticScreensaver/
-├── README.md                 ← you are here
-├── LICENSE                   ← MIT for original revival code (see NOTICE)
-├── NOTICE                    ← trademarks + Rockstar asset disclaimer
-├── CONTRIBUTING.md
-├── docs/                     ← how each piece works
-│   ├── architecture.md
-│   ├── original-flash.md
-│   ├── photo-feed.md
-│   ├── mac-app.md
-│   ├── sourcing.md           ← where each asset came from
-│   └── platforms.md          ← Intel / Windows / modern .saver roadmap
-├── apps/
-│   └── mac/                  ← current Apple Silicon Swift shell
-├── web/                      ← shared runtime: SWF + photos + XML feed
-├── vendor/ruffle/            ← vendored Flash emulator (JS + WASM)
-├── archives/
-│   ├── original/             ← Wayback installers + unpatched movie.swf
-│   └── decompiled-source/    ← AS3 from movie.swf (research)
-└── scripts/                  ← run-mac / run-browser helpers
+apps/mac/          Apple Silicon Swift shell
+web/               SWF, photos, XML feed
+vendor/ruffle/     vendored Flash emulator
+archives/          original installers + decompiled AS3
+docs/              architecture, feed, sourcing, platforms
+scripts/           run-mac / run-browser helpers
 ```
 
-## How it works (short version)
+## How it works
 
-1. **`movie_local.swf`** — original Flash mosaic UI, binary-patched so its config URL points at `127.0.0.1:18765` instead of Rockstar’s dead Social Club host.
-2. **`web/xxxx/.../snapmaticScreensaver.xml`** — fake feed matching the schema the SWF expects (`cloudStatus`, `numCols`, image URLs).
-3. **`web/photos/`** — period-accurate GTA V / Snapmatic stills, cropped to 640×360.
-4. **Ruffle** — plays the SWF in a WebView (no Adobe Flash).
-5. **`apps/mac`** — small AppKit app: starts a local HTTP server, loads the player fullscreen, handles Esc / focus.
+1. `web/movie_local.swf`: original mosaic UI, binary-patched to load config from `127.0.0.1:18765`
+2. Local XML feed under `web/xxxx/.../snapmaticScreensaver.xml` (`cloudStatus`, `numCols`, image URLs)
+3. `web/photos/`: GTA V stills cropped to 640x360
+4. Ruffle plays the SWF in a WebView
+5. `apps/mac`: AppKit shell (local HTTP server, fullscreen player, Esc/focus)
 
-Longer explanations live in [`docs/`](docs/).
+Details: [`docs/`](docs/). Provenance and Wayback URLs: [docs/sourcing.md](docs/sourcing.md).
 
-## Provenance (short)
+Original Newswire: https://www.rockstargames.com/newswire/article/89k8a554595772/the-snapmatic-screensaver.html
 
-| Asset | Source |
-|-------|--------|
-| Mac / PC installers | Wayback captures of dead `media.rockstargames.com` ZIPs |
-| SWF + AS3 schema | Extracted from Mac `.saver`; decompiled with FFDec |
-| Local XML feed | Rebuilt (original Social Club XML never archived) |
-| Photos | Wayback Newswire JPEGs, cropped to 640×360 — not the lost live Snapmatic CDN pool |
-| App icon | PC EXE PE icons (Mac `DLMIcon.icns` was a Dreamweaver placeholder) |
-| Ruffle | npm `@ruffle-rs/ruffle`, vendored under `vendor/ruffle/` |
+## License
 
-Full hunt notes, Wayback URLs, and methods: **[docs/sourcing.md](docs/sourcing.md)**
-
-Original Newswire article:  
-https://www.rockstargames.com/newswire/article/89k8a554595772/the-snapmatic-screensaver.html
-
-## License / attribution
-
-| Part | License |
-|------|---------|
-| Original revival code (Mac shell, scripts, docs, reconstructed feed) | [MIT](LICENSE) |
-| Rockstar binaries, SWF, art, photos, decompiled AS3 | **Not** MIT — copyright holders retain rights; research/preservation only ([NOTICE](NOTICE)) |
+| Part | Terms |
+|------|-------|
+| Revival code (shell, scripts, docs, reconstructed feed) | [MIT](LICENSE) |
+| Rockstar binaries, SWF, art, photos, decompiled AS3 | Not MIT. Research/preservation only ([NOTICE](NOTICE)) |
 | Ruffle | Apache-2.0 / MIT (`vendor/ruffle`) |
 
-This is an unofficial fan preservation project — not affiliated with or endorsed by Rockstar or Take-Two. See [CONTRIBUTING.md](CONTRIBUTING.md) if you want to help with Intel Mac, Windows, or a modern `.saver`.
-
-## Next
-
-See [docs/platforms.md](docs/platforms.md) for Intel Mac, Windows, and modern ScreenSaver.framework targets.
+See [CONTRIBUTING.md](CONTRIBUTING.md) to help with other platforms.

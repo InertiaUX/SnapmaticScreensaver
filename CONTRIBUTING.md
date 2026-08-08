@@ -1,26 +1,24 @@
 # Contributing
 
-Thanks for helping keep the Snapmatic Screensaver alive on modern machines.
-
-This is an unofficial fan **preservation** project. Contributions should keep the original mosaic experience working, document provenance honestly, and avoid claiming affiliation with Rockstar or Take-Two.
+Unofficial fan preservation project. Keep the original mosaic working, document provenance, and don't claim Rockstar/Take-Two affiliation.
 
 ## Before you start
 
-1. Read [README.md](README.md) and [NOTICE](NOTICE).
-2. Skim [docs/architecture.md](docs/architecture.md) and [docs/platforms.md](docs/platforms.md).
-3. If you touch archives or media, also read [docs/sourcing.md](docs/sourcing.md).
+1. [README.md](README.md) and [NOTICE](NOTICE)
+2. [docs/architecture.md](docs/architecture.md), [docs/platforms.md](docs/platforms.md)
+3. Archives or media: [docs/sourcing.md](docs/sourcing.md)
 
-## Ways to help
+## Useful work
 
 | Area | Examples |
 |------|----------|
 | Platforms | Intel/universal Mac, Windows shell, modern `.saver` |
-| Runtime | Ruffle updates, local HTTP server hardening, Esc/focus quirks |
-| Feed / photos | More period-accurate stills, better XML coverage, authentic Snapmatic archives if found |
-| Docs | Clearer install steps, provenance updates, troubleshooting |
+| Runtime | Ruffle updates, localhost server, Esc/focus quirks |
+| Feed / photos | Period stills, XML coverage, authentic Snapmatic archives |
+| Docs | Install steps, provenance, troubleshooting |
 | Packaging | Releases, notarization notes, Windows installers |
 
-## Development quick start (Apple Silicon)
+## Dev (Apple Silicon)
 
 ```bash
 chmod +x apps/mac/build.sh scripts/*.sh
@@ -28,36 +26,17 @@ chmod +x apps/mac/build.sh scripts/*.sh
 ./scripts/run-mac.sh
 ```
 
-Browser-only debug (no `.app`):
+Feed/SWF without rebuilding the app: `./scripts/run-browser.sh`
 
-```bash
-./scripts/run-browser.sh
-```
+## Pull requests
 
-## Pull request guidelines
+- Keep PRs focused; match style in touched files.
+- Don't commit build products (`.app`, `dist/`).
+- Leave `archives/original/movie.swf` pristine; regenerate `web/movie_local.swf` if the config URL changes.
+- New photos: 640x360, register in the XML feed, note the source in `docs/sourcing.md` or the PR.
+- Say what is new code vs archived Rockstar material.
+- Don't strip trademark disclaimers or rebrand as official Rockstar.
 
-- Prefer small, focused PRs over large mixed dumps.
-- Match existing style in the files you touch.
-- Do not commit build products (`.app`, `dist/`) — they are gitignored.
-- Keep `archives/original/movie.swf` pristine; regenerate `web/movie_local.swf` from it if the config URL changes.
-- When adding photos, crop/resize to **640×360**, register them in the local XML feed, and note the source in `docs/sourcing.md` or the PR description.
-- Never commit secrets, personal paths, or private credentials.
-- Be clear in the PR what is new original code vs archived Rockstar material.
+## Bug reports
 
-## Legal / attribution reminders
-
-- Do not remove trademark disclaimers from `README.md` or `NOTICE`.
-- Do not rebrand this as an official Rockstar product.
-- Original Rockstar binaries and art are **not** MIT-licensed — see `LICENSE` and `NOTICE`.
-- Prefer citing Wayback / CDX URLs when you add recovered assets.
-
-## Issues
-
-Bug reports are most useful with:
-
-- macOS / Windows version and CPU arch
-- Steps to reproduce
-- Whether `./scripts/run-browser.sh` also fails
-- Relevant console / Ruffle errors
-
-Feature requests should say which platform they target and why the original behavior needs it.
+Include OS/arch, how you ran it (`apps/mac` vs browser script), steps, and whether `./scripts/run-browser.sh` fails too.

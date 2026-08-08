@@ -1,5 +1,5 @@
 # apps/windows (planned)
 
-Windows host for the same `web/` + Ruffle stack. Not implemented yet.
+Windows host for `web/` + Ruffle. Not implemented.
 
-Likely options: Ruffle desktop launcher, or WebView2 borderless window. See [docs/platforms.md](../../docs/platforms.md).
+Likely: Ruffle desktop launcher, or WebView2 borderless window. See [docs/platforms.md](../../docs/platforms.md).

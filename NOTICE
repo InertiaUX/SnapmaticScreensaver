@@ -1,6 +1,6 @@
 # NOTICE
 
-This project is an unofficial fan preservation effort.
+Unofficial fan preservation effort.
 
 ## Trademarks
 
@@ -9,29 +9,25 @@ trademarks of Take-Two Interactive Software, Inc. / Rockstar Games.
 
 ## Copyrighted material (not MIT-licensed)
 
-The following (and similar) materials remain copyright of their respective
-owners and are included for personal research and software preservation only:
+These (and similar) materials remain copyright of their owners. Included for
+personal research and software preservation only:
 
-- Original Mac/PC installer ZIPs and extracted binaries under `archives/original/`
+- Original Mac/PC installer ZIPs and binaries under `archives/original/`
 - Original and patched Flash SWF (`archives/original/movie.swf`, `web/movie_local.swf`)
 - Decompiled ActionScript under `archives/decompiled-source/`
 - Rockstar Newswire / marketing stills under `web/photos/` and related archives
-- App icon resources derived from the original PC executable
+- App icon resources from the original PC executable
 
-Redistribution of those assets may be restricted by copyright law. Do not treat
-them as free for commercial reuse.
+Do not treat them as free for commercial reuse.
 
 ## Original revival code
 
-New platform shells, scripts, reconstructed feed XML, and project documentation
-authored for this revival are licensed under the MIT License — see `LICENSE`.
+Platform shells, scripts, reconstructed feed XML, and project docs authored for
+this revival are MIT-licensed (see `LICENSE`). That grant does not cover Rockstar
+/ Take-Two material above, or third-party components with their own terms.
 
-That MIT grant does **not** cover Rockstar / Take-Two material listed above, nor
-third-party components with their own terms.
+## Third-party
 
-## Third-party open source
-
-Ruffle (Flash emulator) is separate open-source software (Apache-2.0 / MIT);
-see licenses under `vendor/ruffle/` and https://ruffle.rs/
+Ruffle is Apache-2.0 / MIT; see `vendor/ruffle/` and https://ruffle.rs/
 
 Not affiliated with, endorsed by, or connected to Rockstar Games or Take-Two.

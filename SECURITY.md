@@ -1,23 +1,17 @@
 # Security Policy
 
-## Supported versions
+Fixes land on the default branch when we can.
 
-This project is a volunteer preservation effort. Security fixes are applied on a best-effort basis to the default branch.
+## Reporting
 
-## Reporting a vulnerability
+Don't open a public issue for security-sensitive bugs (e.g. RCE via the local HTTP server or WebView).
 
-Please **do not** open a public issue for security-sensitive reports (for example remote code execution via the local HTTP server or WebView).
+Email the maintainer on the GitHub profile, or use a private [security advisory](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability) if enabled.
 
-Instead, email the maintainer listed on the GitHub repository profile, or open a private [GitHub security advisory](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability) if that is enabled for the repo.
+Include OS/version, repro steps, and whether the issue is localhost-only or network-reachable.
 
-Include:
+## Scope
 
-- Affected platform / OS version
-- Steps to reproduce
-- Impact assessment (local-only vs network-reachable)
-
-## Scope notes
-
-- The Mac app binds a **localhost** HTTP server to serve the Flash player, feed, and photos. Treat unexpected exposure beyond loopback as a bug.
-- Vendored [Ruffle](https://ruffle.rs/) issues should generally be reported upstream unless the bug is in our integration.
-- Archived Rockstar binaries are historical artifacts; we do not patch the original installers.
+- The Mac app serves the player/feed/photos on **localhost**. Exposure beyond loopback is a bug.
+- Report Ruffle bugs [upstream](https://ruffle.rs/) unless the issue is our integration.
+- We don't patch the archived Rockstar installers.

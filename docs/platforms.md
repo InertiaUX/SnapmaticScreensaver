@@ -1,99 +1,56 @@
 # Platform roadmap
 
-People will want more than the current Apple Silicon app. Shared pieces (`web/`, `vendor/ruffle/`, archives) stay common; only the shell changes per platform.
+Shared pieces (`web/`, `vendor/ruffle/`, archives) stay common. Only the shell changes per platform.
 
 ## 1. Apple Silicon Mac (done)
 
-- Path: `apps/mac/`
-- Shell: Swift + AppKit + WKWebView
-- Arch: `arm64`
-- Docs: [mac-app.md](mac-app.md)
+`apps/mac/` · Swift + AppKit + WKWebView · `arm64` · [mac-app.md](mac-app.md)
 
 ## 2. Intel Mac
 
-**Goal:** Same `.app` experience on `x86_64` (and ideally a universal binary).
-
-Suggested approach:
+Same `.app` on `x86_64`, ideally universal.
 
 ```bash
-# Intel-only
 TARGET=x86_64-apple-macosx11.0 ./apps/mac/build.sh
-
-# Universal (lipo arm64 + x86_64)
-# 1) build each arch to a temp binary
-# 2) lipo -create -output SnapmaticScreensaver arm64-bin x86_64-bin
+# Universal: build each arch, then lipo
 ```
 
-Options:
+Prefer extending `apps/mac/build.sh` (`ARCH=universal`) over duplicating sources in `apps/mac-intel/`. Ruffle WASM is arch-agnostic inside the WebView.
 
-| Option | Pros | Cons |
-|--------|------|------|
-| A. Extend `apps/mac/build.sh` with `ARCH=universal` | One folder | Slightly more complex script |
-| B. `apps/mac-intel/` sibling | Clear separation | Duplicate plist/HTML |
+## 3. Windows
 
-**Recommendation:** Option A — same sources, multi-arch build flag. Ruffle WASM is already arch-agnostic inside the WebView.
-
-**Test on:** Intel Mac or Rosetta (`arch -x86_64 …`) where available.
-
-## 3. Windows (PC)
-
-**Goal:** Double-clickable Windows build using the same SWF + feed.
-
-Suggested approaches (pick one later):
+Same SWF + feed, double-clickable.
 
 | Approach | Notes |
 |----------|-------|
-| **Ruffle desktop** | Official desktop player + launcher script that starts a local HTTP server and opens `movie_local.swf` |
-| **WebView2 + tiny host** | Mirror the Mac design: C#/Rust/Go tray or borderless window + embedded Edge WebView2 loading `app-index.html` |
-| **Ship original EXE + injector** | Least authentic to *modern* Windows; Flash is dead — not recommended |
+| Ruffle desktop | Local HTTP server + open `movie_local.swf` |
+| WebView2 + small host | Mirror Mac: borderless window loads `app-index.html` |
+| Original EXE + injector | Flash is dead; skip |
 
-Shared assets to reuse as-is:
+Reuse `web/`, `vendor/ruffle/`, and icons from `apps/mac/icon-src/`. Scaffold under `apps/windows/`.
 
-- `web/movie_local.swf`
-- `web/photos/` + XML feed
-- `vendor/ruffle/`
-- Icon from `apps/mac/icon-src/` (already from the PC EXE)
+## 4. Modern Mac `.saver`
 
-Scaffold later as `apps/windows/` with a `build.ps1` / GitHub Actions Windows job.
+System Settings screensaver (not the fullscreen app).
 
-## 4. Modern Mac `.saver` (true screensaver)
+1. `apps/mac-saver/` → `Snapmatic.saver`
+2. `ScreenSaverView` hosts WKWebView against bundled `web/`
+3. Start localhost HTTP inside the saver (safer than `file://` for the patched SWF)
+4. Sign for local use; notarize if distributing
 
-**Goal:** Appear in System Settings → Screen Saver, idle-activate like 2013.
+Validate on the macOS version you target; Screen Saver APIs keep changing.
 
-This is a **different** product from the fullscreen app:
+## 5. Browser demo
 
-| App shell (today) | ScreenSaver.framework |
-|-------------------|------------------------|
-| Normal app, Esc to quit | Loaded by `ScreenSaverEngine` |
-| Easy to debug | Sandboxed / preview vs full-screen quirks |
-| Cmd-Tab friendly | Must implement `ScreenSaverView` |
+`scripts/run-browser.sh` already works for local tryouts. GitHub Pages would need same-origin relative URLs and likely a second SWF patch.
 
-Sketch:
-
-1. New target `apps/mac-saver/` → `Snapmatic.saver` bundle.
-2. `ScreenSaverView` hosts WKWebView (or draws via Ruffle if embeddable) pointing at bundled `web/`.
-3. Local HTTP server must start inside the saver process (or use `file://` + Ruffle `base` URL carefully — HTTP is safer for the patched SWF).
-4. Sign for local use; notarization if distributing.
-
-Apple has tightened Screen Saver APIs over time; validate on the current macOS you target before promising a download.
-
-## 5. Browser-only demo
-
-Already half-there via `scripts/run-browser.sh`. Nice for GitHub Pages **only if** you accept that the XML URLs must be same-origin (relative paths) and the SWF may need a second patch for non-localhost hosts. Good for “try it” demos; not a screensaver.
-
-## Suggested build matrix (future CI)
+## Future CI (sketch)
 
 | Job | Output |
 |-----|--------|
-| `mac-arm64` | `Snapmatic Screensaver.app` (zip) |
+| `mac-arm64` | `.app` zip |
 | `mac-universal` | Universal `.app` |
-| `windows-x64` | Installer or portable folder |
-| `mac-saver` | `Snapmatic.saver` (optional, harder) |
+| `windows-x64` | Portable folder or installer |
+| `mac-saver` | `.saver` (optional) |
 
-## Working agreement
-
-Until those land:
-
-1. Keep **all photo/SWF/feed changes** in `web/` only.
-2. Keep platform shells thin — no duplicated mosaic logic.
-3. Document each new `apps/*` folder with a short README that links back here.
+Until then: keep photo/SWF/feed changes in `web/` only, keep shells thin, and give each new `apps/*` folder a short README linking here.

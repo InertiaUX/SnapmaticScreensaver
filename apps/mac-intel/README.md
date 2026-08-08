@@ -1,5 +1,5 @@
 # apps/mac-intel (planned)
 
-Intel (`x86_64`) or universal Mac build. Not implemented yet.
+Intel (`x86_64`) or universal Mac build. Not implemented.
 
-Plan: extend `apps/mac/build.sh` with `TARGET` / `ARCH=universal` rather than duplicating sources. See [docs/platforms.md](../../docs/platforms.md).
+Prefer extending `apps/mac/build.sh` with `TARGET` / `ARCH=universal` over duplicating sources. See [docs/platforms.md](../../docs/platforms.md).

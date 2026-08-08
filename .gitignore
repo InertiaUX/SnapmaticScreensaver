@@ -9,6 +9,5 @@ dist/
 .DS_Store
 .chrome-profile/
 
-# Optional: keep Ruffle vendored for offline builds.
-# Uncomment to force a fresh download via build.sh instead:
+# Uncomment to force Ruffle re-download via build.sh:
 # vendor/ruffle/

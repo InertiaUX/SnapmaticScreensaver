@@ -1,7 +1,5 @@
 ## Summary
 
-<!-- What changed and why (1–3 bullets). -->
-
 -
 
 ## Test plan
@@ -13,4 +11,4 @@
 
 ## Notes
 
-<!-- Legal: new archived assets? cite Wayback/source. Breaking feed schema? -->
+<!-- New archived assets? cite source. Feed schema changes? -->

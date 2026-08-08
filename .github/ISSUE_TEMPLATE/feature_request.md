@@ -16,8 +16,8 @@ assignees: ''
 - [ ] Docs / tooling
 - [ ] Other:
 
-**Why it matters for preservation**
+**Why**
 
-**Proposed approach** (optional)
+**Approach** (optional)
 
 **Related docs** (e.g. `docs/platforms.md`)

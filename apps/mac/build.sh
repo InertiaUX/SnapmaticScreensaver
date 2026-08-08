@@ -1,6 +1,5 @@
 #!/bin/bash
-# Builds "Snapmatic Screensaver.app" for Apple Silicon into ~/Applications
-# (or DIST_DIR if set). Shared web assets + Ruffle are bundled so it runs offline.
+# Build Snapmatic Screensaver.app into ~/Applications (or DIST_DIR). Offline bundle.
 set -e
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
