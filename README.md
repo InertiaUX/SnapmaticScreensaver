@@ -22,16 +22,17 @@ This project brings it back for nostalgia, and so anyone can run a more modern v
 
 ## Support
 
-| Platform | Status |
-|----------|--------|
-| **macOS** (Apple Silicon) | Ready (`apps/mac`) |
-| **macOS** (Intel / universal) | Ready (`ARCH=x86_64` or `universal`) |
-| **Windows (PC)** | Ready (`apps/desktop`) |
-| **Linux** | Ready (`apps/desktop`) |
+| Platform | Download |
+|----------|----------|
+| **macOS** (Apple Silicon) | [v1.1 arm64](https://github.com/InertiaUX/SnapmaticScreensaver/releases/download/v1.1/Snapmatic-Screensaver-1.1-macOS-arm64.zip) |
+| **macOS** (Intel) | [v1.1 x86_64](https://github.com/InertiaUX/SnapmaticScreensaver/releases/download/v1.1/Snapmatic-Screensaver-1.1-macOS-x86_64.zip) |
+| **macOS** (universal) | [v1.1 universal](https://github.com/InertiaUX/SnapmaticScreensaver/releases/download/v1.1/Snapmatic-Screensaver-1.1-macOS-universal.zip) |
+| **Windows (PC)** | [v1.1 windows-amd64](https://github.com/InertiaUX/SnapmaticScreensaver/releases/download/v1.1/Snapmatic-Screensaver-1.1-windows-amd64.zip) |
+| **Linux** | [v1.1 linux-amd64](https://github.com/InertiaUX/SnapmaticScreensaver/releases/download/v1.1/Snapmatic-Screensaver-1.1-linux-amd64.zip) |
 | **macOS** Screen Saver (`.saver`) | Planned |
 | **Browser** | Local tryouts (`scripts/run-browser.sh`) |
 
-Downloads: [Releases](https://github.com/InertiaUX/SnapmaticScreensaver/releases). Roadmap: [docs/platforms.md](docs/platforms.md).
+All releases: [Releases](https://github.com/InertiaUX/SnapmaticScreensaver/releases). Roadmap: [docs/platforms.md](docs/platforms.md).
 
 ## Quick start
 
