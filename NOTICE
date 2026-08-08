@@ -1,0 +1,34 @@
+# NOTICE
+
+This project is an unofficial fan preservation effort.
+
+## Trademarks
+
+Grand Theft Auto, Snapmatic, Rockstar Games, Social Club, and related marks are
+trademarks of Take-Two Interactive Software, Inc. / Rockstar Games.
+
+## Copyrighted material (not MIT-licensed)
+
+The following (and similar) materials remain copyright of their respective
+owners and are included for personal research and software preservation only:
+
+- Original Mac/PC installer ZIPs and extracted binaries under `archives/original/`
+- Original and patched Flash SWF (`archives/original/movie.swf`, `web/movie_local.swf`)
+- Decompiled ActionScript under `archives/decompiled-source/`
+- Rockstar Newswire / marketing stills under `web/photos/` and related archives
+- App icon resources derived from the original PC executable
+
+Redistribution of those assets may be restricted by copyright law. Do not treat
+them as free for commercial reuse.
+
+## Original revival code
+
+New platform shells, scripts, reconstructed feed XML, and project documentation
+authored for this revival are licensed under the MIT License — see `LICENSE`.
+
+## Third-party open source
+
+Ruffle (Flash emulator) is separate open-source software (Apache-2.0 / MIT);
+see licenses under `vendor/ruffle/` and https://ruffle.rs/
+
+Not affiliated with, endorsed by, or connected to Rockstar Games or Take-Two.

@@ -1,0 +1,14 @@
+# Build products
+apps/mac/SnapmaticScreensaver
+apps/*/build/
+dist/
+*.app/
+
+# Runtime junk
+*.log
+.DS_Store
+.chrome-profile/
+
+# Optional: keep Ruffle vendored for offline builds.
+# Uncomment to force a fresh download via build.sh instead:
+# vendor/ruffle/
