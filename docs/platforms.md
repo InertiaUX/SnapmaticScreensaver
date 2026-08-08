@@ -6,30 +6,40 @@ Shared pieces (`web/`, `vendor/ruffle/`, archives) stay common. Only the shell c
 
 `apps/mac/` · Swift + AppKit + WKWebView · `arm64` · [mac-app.md](mac-app.md)
 
-## 2. Intel Mac
-
-Same `.app` on `x86_64`, ideally universal.
-
 ```bash
-TARGET=x86_64-apple-macosx11.0 ./apps/mac/build.sh
-# Universal: build each arch, then lipo
+./apps/mac/build.sh
 ```
 
-Prefer extending `apps/mac/build.sh` (`ARCH=universal`) over duplicating sources in `apps/mac-intel/`. Ruffle WASM is arch-agnostic inside the WebView.
+## 2. Intel / universal Mac (done)
 
-## 3. Windows
+Same `.app`, built from `apps/mac/`:
 
-Same SWF + feed, double-clickable.
+```bash
+ARCH=x86_64 ./apps/mac/build.sh
+ARCH=universal ./apps/mac/build.sh
+```
 
-| Approach | Notes |
-|----------|-------|
-| Ruffle desktop | Local HTTP server + open `movie_local.swf` |
-| WebView2 + small host | Mirror Mac: borderless window loads `app-index.html` |
-| Original EXE + injector | Flash is dead; skip |
+Ruffle WASM is arch-agnostic inside the WebView.
 
-Reuse `web/`, `vendor/ruffle/`, and icons from `apps/mac/icon-src/`. Scaffold under `apps/windows/`.
+## 3. Windows (done)
 
-## 4. Modern Mac `.saver`
+Portable launcher: `apps/desktop/` (Go HTTP server + Edge/Chrome app mode).
+
+```bash
+./apps/desktop/build.sh
+# → dist/desktop/*-windows-amd64.zip
+```
+
+## 4. Linux (done)
+
+Same `apps/desktop/` launcher (Chromium/Chrome kiosk).
+
+```bash
+./apps/desktop/build.sh
+# → dist/desktop/*-linux-amd64.zip
+```
+
+## 5. Modern Mac `.saver` (planned)
 
 System Settings screensaver (not the fullscreen app).
 
@@ -38,19 +48,17 @@ System Settings screensaver (not the fullscreen app).
 3. Start localhost HTTP inside the saver (safer than `file://` for the patched SWF)
 4. Sign for local use; notarize if distributing
 
-Validate on the macOS version you target; Screen Saver APIs keep changing.
+## 6. Browser demo
 
-## 5. Browser demo
+`scripts/run-browser.sh` for local tryouts without packaging.
 
-`scripts/run-browser.sh` already works for local tryouts. GitHub Pages would need same-origin relative URLs and likely a second SWF patch.
+## Packaging
 
-## Future CI (sketch)
+| Artifact | How |
+|----------|-----|
+| macOS arm64 `.app` zip | `ARCH=arm64 DIST_DIR=… ./apps/mac/build.sh` then `ditto -c -k --keepParent` |
+| macOS Intel `.app` zip | `ARCH=x86_64 …` |
+| macOS universal `.app` zip | `ARCH=universal …` |
+| Windows / Linux zips | `./apps/desktop/build.sh` |
 
-| Job | Output |
-|-----|--------|
-| `mac-arm64` | `.app` zip |
-| `mac-universal` | Universal `.app` |
-| `windows-x64` | Portable folder or installer |
-| `mac-saver` | `.saver` (optional) |
-
-Until then: keep photo/SWF/feed changes in `web/` only, keep shells thin, and give each new `apps/*` folder a short README linking here.
+Keep photo/SWF/feed changes in `web/` only. Keep shells thin.

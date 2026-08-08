@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Snapmatic Screensaver</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; cursor: none; }
+  #player { position: fixed; inset: 0; }
+  #hint {
+    position: fixed; left: 50%; bottom: 34px; transform: translateX(-50%);
+    padding: 9px 18px; border-radius: 999px;
+    background: rgba(0, 0, 0, .55); backdrop-filter: blur(6px);
+    color: rgba(255, 255, 255, .78);
+    font: 500 12px/1 system-ui, -apple-system, Segoe UI, sans-serif;
+    letter-spacing: .14em; text-transform: uppercase; white-space: nowrap;
+    pointer-events: none; animation: fade 6s ease forwards;
+  }
+  @keyframes fade {
+    0%, 8% { opacity: 0; }
+    18%, 72% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+</style>
+<script>
+window.RufflePlayer = window.RufflePlayer || {};
+window.RufflePlayer.config = {
+  autoplay: "on",
+  unmuteOverlay: "hidden",
+  letterbox: "off",
+  scale: "noScale",
+  quality: "high",
+  contextMenu: "off",
+  splashScreen: false,
+  allowScriptAccess: true,
+  logLevel: "error"
+};
+</script>
+<script src="ruffle/ruffle.js"></script>
+</head>
+<body>
+<div id="player"></div>
+<div id="hint">Esc or close window to quit</div>
+<script>
+window.addEventListener("load", () => {
+  const player = window.RufflePlayer.newest().createPlayer();
+  player.style.width = "100%";
+  player.style.height = "100%";
+  document.getElementById("player").appendChild(player);
+  player.load("movie_local.swf");
+});
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" || e.key === "q" || e.key === "Q") {
+    window.close();
+  }
+});
+</script>
+</body>
+</html>

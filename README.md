@@ -5,7 +5,7 @@
 <h1 align="center">Snapmatic Screensaver</h1>
 
 <p align="center">
-  <strong>v1.0</strong><br>
+  <strong>v1.1</strong><br>
   Open source by <a href="https://github.com/InertiaUX">Inertia</a>
 </p>
 
@@ -25,20 +25,25 @@ This project brings it back for nostalgia, and so anyone can run a more modern v
 | Platform | Status |
 |----------|--------|
 | **macOS** (Apple Silicon) | Ready (`apps/mac`) |
-| **Windows (PC)** | Planned (`apps/windows`) |
-| **macOS** (Intel / universal) | Planned |
+| **macOS** (Intel / universal) | Ready (`ARCH=x86_64` or `universal`) |
+| **Windows (PC)** | Ready (`apps/desktop`) |
+| **Linux** | Ready (`apps/desktop`) |
 | **macOS** Screen Saver (`.saver`) | Planned |
-| **Browser** | Works for local tryouts (`scripts/run-browser.sh`) |
+| **Browser** | Local tryouts (`scripts/run-browser.sh`) |
 
-Roadmap: [docs/platforms.md](docs/platforms.md).
+Downloads: [Releases](https://github.com/InertiaUX/SnapmaticScreensaver/releases). Roadmap: [docs/platforms.md](docs/platforms.md).
 
-## Quick start (macOS)
+## Quick start
+
+### macOS
 
 ```bash
 git clone https://github.com/InertiaUX/SnapmaticScreensaver.git
 cd SnapmaticScreensaver
 chmod +x apps/mac/build.sh scripts/*.sh
-./apps/mac/build.sh
+./apps/mac/build.sh                          # Apple Silicon
+# ARCH=x86_64 ./apps/mac/build.sh            # Intel
+# ARCH=universal ./apps/mac/build.sh         # both
 open -a ~/Applications/Snapmatic\ Screensaver.app
 ```
 
@@ -46,9 +51,17 @@ Or: `./scripts/run-mac.sh`
 
 **Controls:** Esc / Q quit · ⌘Q quit · ⌘Tab / Dock to switch apps
 
-### Windows / PC
+### Windows / Linux
 
-No native Windows build yet. Until `apps/windows` lands, you can try the shared player in a browser (Chrome kiosk helper on macOS; on Windows, serve `web/` locally the same way and open `index.html` with Ruffle). Details in [docs/platforms.md](docs/platforms.md).
+Prebuilt zips are on the [Releases](https://github.com/InertiaUX/SnapmaticScreensaver/releases) page. Or build:
+
+```bash
+./apps/desktop/build.sh
+```
+
+Unzip, run `SnapmaticScreensaver.exe` (Windows) or `./SnapmaticScreensaver` (Linux). Needs Chrome, Edge, or Chromium for fullscreen app mode.
+
+**Controls:** Esc or close the browser window · Ctrl+C in the terminal stops the local server
 
 ## How it works
 
@@ -56,13 +69,15 @@ No native Windows build yet. Until `apps/windows` lands, you can try the shared 
 2. Local XML feed under `web/xxxx/.../snapmaticScreensaver.xml`
 3. `web/photos/`: GTA V stills cropped to 640x360
 4. Ruffle plays the SWF in a WebView
-5. `apps/mac`: AppKit shell (local HTTP server, fullscreen player, Esc/focus)
+5. Platform shell: AppKit on macOS, or the portable Go launcher on Windows/Linux (`apps/desktop`)
 
 ## Layout
 
 ```
-apps/mac/          macOS Apple Silicon shell
-apps/windows/      Windows / PC shell (planned)
+apps/mac/          macOS shell (arm64 / x86_64 / universal)
+apps/desktop/      Windows + Linux portable launcher
+apps/windows/      points at apps/desktop
+apps/linux/        points at apps/desktop
 web/               SWF, photos, XML feed
 vendor/ruffle/     vendored Flash emulator
 archives/          original installers + decompiled AS3

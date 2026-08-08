@@ -1,5 +1,10 @@
-# apps/windows (planned)
+# apps/windows
 
-Windows host for `web/` + Ruffle. Not implemented.
+Windows builds use the shared portable launcher in [`apps/desktop`](../desktop/).
 
-Likely: Ruffle desktop launcher, or WebView2 borderless window. See [docs/platforms.md](../../docs/platforms.md).
+```bash
+./apps/desktop/build.sh
+# → dist/desktop/Snapmatic-Screensaver-*-windows-amd64.zip
+```
+
+See [docs/platforms.md](../../docs/platforms.md).

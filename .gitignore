@@ -1,5 +1,6 @@
 # Build products
 apps/mac/SnapmaticScreensaver
+apps/mac/SnapmaticScreensaver-*
 apps/*/build/
 dist/
 *.app/

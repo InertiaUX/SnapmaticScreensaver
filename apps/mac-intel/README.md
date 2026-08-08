@@ -1,5 +1,11 @@
-# apps/mac-intel (planned)
+# apps/mac-intel
 
-Intel (`x86_64`) or universal Mac build. Not implemented.
+Intel (`x86_64`) Mac build uses the same sources as `apps/mac/`:
 
-Prefer extending `apps/mac/build.sh` with `TARGET` / `ARCH=universal` over duplicating sources. See [docs/platforms.md](../../docs/platforms.md).
+```bash
+ARCH=x86_64 ./apps/mac/build.sh
+# or both slices:
+ARCH=universal ./apps/mac/build.sh
+```
+
+See [docs/platforms.md](../../docs/platforms.md).
