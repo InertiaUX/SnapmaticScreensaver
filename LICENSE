@@ -19,26 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-------------------------------------------------------------------------------
-
-IMPORTANT — scope of this license
-
-This MIT license applies only to original contributions in this repository
-authored for the revival project, including (but not limited to):
-
-  - apps/mac/ and other new platform shells
-  - scripts/
-  - docs/ authored for this project
-  - reconstructed feed XML under web/xxxx/
-  - build tooling and project configuration
-
-It does NOT license Rockstar Games / Take-Two Interactive content, including
-original screensaver binaries, Flash SWF assets, artwork, photos sourced from
-Rockstar media, trademarks, or decompiled ActionScript derived from Rockstar
-binaries. Those materials remain copyright of their respective owners and are
-included here solely for personal research and software preservation. See
-NOTICE for details.
-
-Third-party components (for example Ruffle under vendor/ruffle/) retain their
-own licenses.

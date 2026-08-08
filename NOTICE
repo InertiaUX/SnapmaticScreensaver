@@ -26,6 +26,9 @@ them as free for commercial reuse.
 New platform shells, scripts, reconstructed feed XML, and project documentation
 authored for this revival are licensed under the MIT License — see `LICENSE`.
 
+That MIT grant does **not** cover Rockstar / Take-Two material listed above, nor
+third-party components with their own terms.
+
 ## Third-party open source
 
 Ruffle (Flash emulator) is separate open-source software (Apache-2.0 / MIT);
