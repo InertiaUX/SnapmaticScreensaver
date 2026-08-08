@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Snapmatic Screensaver</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; cursor: none; }
+  #player { position: fixed; inset: 0; }
+</style>
+<script>
+window.RufflePlayer = window.RufflePlayer || {};
+window.RufflePlayer.config = {
+  autoplay: "on",
+  unmuteOverlay: "hidden",
+  letterbox: "off",
+  scale: "noScale",
+  quality: "high",
+  contextMenu: "off",
+  splashScreen: false,
+  allowScriptAccess: true,
+  logLevel: "error"
+};
+</script>
+<script src="ruffle/ruffle.js"></script>
+</head>
+<body>
+<div id="player"></div>
+<script>
+window.addEventListener("load", () => {
+  const player = window.RufflePlayer.newest().createPlayer();
+  player.style.width = "100%";
+  player.style.height = "100%";
+  document.getElementById("player").appendChild(player);
+  player.load("movie_local.swf");
+});
+</script>
+</body>
+</html>

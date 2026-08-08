@@ -39,14 +39,21 @@ Same `apps/desktop/` launcher (Chromium/Chrome kiosk).
 # → dist/desktop/*-linux-amd64.zip
 ```
 
-## 5. Modern Mac `.saver` (planned)
+## 5. Modern Mac `.saver` (experimental)
 
-System Settings screensaver (not the fullscreen app).
+`apps/mac-saver/` → `Snapmatic.saver` for System Settings → Screen Saver.
 
-1. `apps/mac-saver/` → `Snapmatic.saver`
-2. `ScreenSaverView` hosts WKWebView against bundled `web/`
-3. Start localhost HTTP inside the saver (safer than `file://` for the patched SWF)
-4. Sign for local use; notarize if distributing
+```bash
+./apps/mac-saver/build.sh
+# → ~/Library/Screen Savers/Snapmatic.saver
+```
+
+- `ScreenSaverView` hosts WKWebView + Ruffle when idle-activated
+- Preview shows the app icon only
+- In-process localhost feed on port 18765 (same patched SWF URL)
+- Ad-hoc signed; on newer macOS you may need Legacy Screen Savers
+
+Do not run the fullscreen Mac app and the `.saver` at the same time (shared port).
 
 ## 6. Browser demo
 
@@ -59,6 +66,7 @@ System Settings screensaver (not the fullscreen app).
 | macOS arm64 `.app` zip | `ARCH=arm64 DIST_DIR=… ./apps/mac/build.sh` then `ditto -c -k --keepParent` |
 | macOS Intel `.app` zip | `ARCH=x86_64 …` |
 | macOS universal `.app` zip | `ARCH=universal …` |
+| macOS `.saver` zip | `./apps/mac-saver/build.sh` then zip `Snapmatic.saver` |
 | Windows / Linux zips | `./apps/desktop/build.sh` |
 
 Keep photo/SWF/feed changes in `web/` only. Keep shells thin.

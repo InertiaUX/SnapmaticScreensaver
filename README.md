@@ -29,7 +29,7 @@ This project brings it back for nostalgia, and so anyone can run a more modern v
 | **macOS** (universal) | [v1.1 universal](https://github.com/InertiaUX/SnapmaticScreensaver/releases/download/v1.1/Snapmatic-Screensaver-1.1-macOS-universal.zip) |
 | **Windows (PC)** | [v1.1 windows-amd64](https://github.com/InertiaUX/SnapmaticScreensaver/releases/download/v1.1/Snapmatic-Screensaver-1.1-windows-amd64.zip) |
 | **Linux** | [v1.1 linux-amd64](https://github.com/InertiaUX/SnapmaticScreensaver/releases/download/v1.1/Snapmatic-Screensaver-1.1-linux-amd64.zip) |
-| **macOS** Screen Saver (`.saver`) | Planned |
+| **macOS** Screen Saver (`.saver`) | [v1.1 experimental](https://github.com/InertiaUX/SnapmaticScreensaver/releases/download/v1.1/Snapmatic-Screensaver-1.1-macOS-saver-arm64.zip) |
 | **Browser** | Local tryouts (`scripts/run-browser.sh`) |
 
 All releases: [Releases](https://github.com/InertiaUX/SnapmaticScreensaver/releases). Roadmap: [docs/platforms.md](docs/platforms.md).
@@ -51,6 +51,14 @@ open -a ~/Applications/Snapmatic\ Screensaver.app
 Or: `./scripts/run-mac.sh`
 
 **Controls:** Esc / Q quit · ⌘Q quit · ⌘Tab / Dock to switch apps
+
+### macOS Screen Saver (experimental)
+
+```bash
+./apps/mac-saver/build.sh
+```
+
+Installs `~/Library/Screen Savers/Snapmatic.saver`. Pick **Snapmatic** in System Settings → Screen Saver. Newer macOS may need Legacy Screen Savers. Don't run the fullscreen app at the same time (shared feed port).
 
 ### Windows / Linux
 
@@ -76,6 +84,7 @@ Unzip, run `SnapmaticScreensaver.exe` (Windows) or `./SnapmaticScreensaver` (Lin
 
 ```
 apps/mac/          macOS shell (arm64 / x86_64 / universal)
+apps/mac-saver/    experimental System Settings .saver
 apps/desktop/      Windows + Linux portable launcher
 apps/windows/      points at apps/desktop
 apps/linux/        points at apps/desktop

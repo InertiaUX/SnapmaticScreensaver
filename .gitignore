@@ -1,9 +1,12 @@
 # Build products
 apps/mac/SnapmaticScreensaver
 apps/mac/SnapmaticScreensaver-*
+apps/mac-saver/Snapmatic
+apps/mac-saver/Snapmatic-*
 apps/*/build/
 dist/
 *.app/
+*.saver/
 
 # Runtime junk
 *.log
