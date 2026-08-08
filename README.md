@@ -20,6 +20,16 @@ Rockstar's Snapmatic Screensaver showed a live mosaic of curated GTA V photos on
 
 This project brings it back for nostalgia, and so anyone can run a more modern version today: original mosaic SWF via [Ruffle](https://ruffle.rs/), local photo feed, native shell where we have one.
 
+## Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/mosaic.jpg" width="800" alt="Snapmatic mosaic screensaver">
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/mosaic-alt.jpg" width="800" alt="Snapmatic mosaic alternating tiles">
+</p>
+
 ## Support
 
 | Platform | Download |
